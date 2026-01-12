@@ -518,5 +518,13 @@ def home():
     }), 200
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
+    # Create tables on startup
+    with app.app_context():
+        db.create_all()
+        print("Database tables created!")
+    
+    # Get port from environment or use 10000
+    port = int(os.getenv('PORT', 10000))
+    
+    # Run the app
     app.run(host='0.0.0.0', port=port, debug=False)
